@@ -1,0 +1,117 @@
+# -- Conky settings -- #
+background no
+update_interval 1
+ 
+cpu_avg_samples 2
+net_avg_samples 2
+ 
+override_utf8_locale yes
+ 
+double_buffer yes
+no_buffers yes
+ 
+text_buffer_size 2048
+imlib_cache_size 0
+ 
+# -- Window specifications -- #
+own_window_class Conky
+own_window yes
+own_window_type normal
+own_window_argb_visual yes
+own_window_argb_value 0
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager 
+#own_window yes
+#own_window_type desktop
+#own_window_transparent yes
+#own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+ 
+border_inner_margin 0
+border_outer_margin 0
+ 
+minimum_size 500 900
+maximum_width 1000
+ 
+alignment top_right
+gap_x -35
+gap_y 100
+ 
+# -- Graphics settings -- #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+ 
+# -- Text settings -- #
+use_xft yes
+xftfont Ubuntu L:size=24
+xftalpha 0.8
+ 
+uppercase no
+ 
+default_color a0a0a0
+color1 f940a7
+color2 1fb6c6
+color3 fae659
+color4 47f940
+color5 ff5bb6
+color6 76b900
+# -- Lua Load -- # #here  you change the directory where you put the script#
+##  Lua directiory
+lua_load ~/.conky/thelinuxgrrrl/thelinuxgrrrl.lua
+lua_draw_hook_pre ring_stats
+ 
+TEXT
+${voffset 5} 
+${font Noto Sans Condensed Thin:pixelsize=16}${goto 0}${color1}CORE 1${color}${font Noto Sans Condensed Thin:pixelsize=12}
+${goto 0}Usage: ${goto 40}${cpu cpu1}%
+${goto 0}Temp:  ${goto 40}${execi 30 sensors | grep 'Core 0' | awk '{print $3}' | sed 's/+//' | sed 's/\.0//g'}
+${goto 0}Freq:  ${goto 40}${freq_g 1}GHz
+${voffset -90}
+${font Noto Sans Condensed Thin:pixelsize=16}${goto 110}${color2}CORE 2${color}${font Noto Sans Condensed Thin:pixelsize=12}
+${goto 110}Usage: ${goto 150}${cpu cpu2}%
+${goto 110}Temp:  ${goto 150}${execi 30 sensors | grep 'Core 1' | awk '{print $3}' | sed 's/+//' | sed 's/\.0//g'}
+${goto 110}Freq:  ${goto 150}${freq_g 2}GHz
+${voffset 10}
+${font Noto Sans Condensed Thin:pixelsize=16}${goto 0}${color3}CORE 3${color}${font Noto Sans Condensed Thin:pixelsize=12}
+${goto 0}Usage: ${goto 40}${cpu cpu3}%
+${goto 0}Temp:  ${goto 40}${execi 30 sensors | grep 'Core 2' | awk '{print $3}' | sed 's/+//' | sed 's/\.0//g'}
+${goto 0}Freq:  ${goto 40}${freq_g 3}GHz
+${voffset -90}
+${font Noto Sans Condensed Thin:pixelsize=16}${goto 110}${color4}CORE 4${color}${font Noto Sans Condensed Thin:pixelsize=12}
+${goto 110}Usage: ${goto 150}${cpu cpu4}%
+${goto 110}Temp:  ${goto 150}${execi 30 sensors | grep 'Core 3' | awk '{print $3}' | sed 's/+//' | sed 's/\.0//g'}
+${goto 110}Freq:  ${goto 150}${freq_g 4}GHz
+
+${voffset 150}
+${goto 0}${font Noto Sans Condensed Thin:pixelsize=16}${color1}ROOT${color}${font Noto Sans Condensed Thin:pixelsize=12}
+${goto 0}Usage: ${goto 50}${fs_used_perc /}%
+${goto 0}Free:  ${goto 50}${fs_free /}
+${goto 0}Used:  ${goto 50}${fs_used /}
+${voffset -90}
+${goto 260}${font Noto Sans Condensed Thin:pixelsize=16}${color2}HOME${color}${font Noto Sans Condensed Thin:pixelsize=12}
+${goto 260}Usage: ${goto 310}${fs_used_perc /home}%
+${goto 260}Free:  ${goto 310}${fs_free /home}
+${goto 260}Used:  ${goto 310}${fs_used /home}
+${voffset 35}
+${goto 0}${font Noto Sans Condensed Thin:pixelsize=16}${color3}RAID${color}${font Noto Sans Condensed Thin:pixelsize=12}
+${goto 0}Usage: ${goto 50}${fs_used_perc /mnt/raid}%
+${goto 0}Free:  ${goto 50}${fs_free /mnt/raid}
+${goto 0}Used:  ${goto 50}${fs_used /mnt/raid}
+${voffset -90}
+${goto 260}${font Noto Sans Condensed Thin:pixelsize=16}${color4}RAMDISK${color}${font Noto Sans Condensed Thin:pixelsize=12}
+${goto 260}Usage: ${goto 310}${fs_used_perc /mnt/ramdisk}%
+${goto 260}Free:  ${goto 310}${fs_free /mnt/ramdisk}
+${goto 260}Used:  ${goto 310}${fs_used /mnt/ramdisk}
+${voffset 35}
+${goto 0}${font Noto Sans Condensed Thin:pixelsize=16}${color5}RAM${color}${font Noto Sans Condensed Thin:pixelsize=12}
+${goto 0}Usage: ${goto 50}$memperc%
+${goto 0}Free:  ${goto 50}${memeasyfree}
+${goto 0}Used:  ${goto 50}${mem}
+${voffset -90}
+${goto 260}${font Noto Sans Condensed Thin:pixelsize=16}${color6}NVIDIA GeForce GTX 980M${color}${font Noto Sans Condensed Thin:pixelsize=12}
+${goto 260}Usage: ${goto 330}${execi 5 nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader} (${execi 5 nvidia-smi --query-gpu=memory.used --format=csv,noheader})
+${goto 260}Temp:  ${goto 330}${execi 5 nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader}%
+${goto 260}GPU Clock: ${goto 330}${execi 5 nvidia-smi --query-gpu=clocks.sm --format=csv,noheader}
+${goto 260}Mem Clock: ${goto 330}${execi 5 nvidia-smi --query-gpu=clocks.mem --format=csv,noheader}
+

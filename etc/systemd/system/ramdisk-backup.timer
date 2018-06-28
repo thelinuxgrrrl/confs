@@ -1,0 +1,13 @@
+# Timer (/etc/systemd/system/ramdisk-backup.timer)
+[Unit]
+Description=Runs ramdisk-backup service every 5 minutes
+
+[Timer]
+# Time to wait after booting before we run first time
+OnBootSec=1min
+# Time between running each consecutive time
+OnUnitActiveSec=30m
+Unit=ramdisk-backup.service
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,7 @@
+# Service (/etc/systemd/system/ramdisk-backup.service)
+[Unit]
+Description=RAMdisk automatic backup
+
+[Service]
+User=naeomee
+ExecStart=/usr/bin/rsync -ar --delete /mnt/ramdisk/ /home/ramdisk/
